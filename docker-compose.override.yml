@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  envoygateway:
+    container_name: envoygateway
+    ports:
+      - "9901:9901"
+      - "10000:10000"
+      - "10001:10001"
+    volumes:
+      - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+
+  serviceone:
+    container_name: serviceone
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    expose:
+      - "80" 
+    ports:
+      - "8000:80"
+
+  servicetwo:
+    container_name: servicetwo
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    expose:
+      - "80" 
+    ports:
+      - "8001:80"

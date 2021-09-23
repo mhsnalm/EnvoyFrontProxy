@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  envoygateway:
+    image: envoyproxy/envoy:v1.19-latest
+    build: Envoy/
+    volumes:
+      - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+
+  serviceone:
+    image: ${DOCKER_REGISTRY-}serviceone
+    build:
+      context: .
+      dockerfile: ServiceOne/Dockerfile
+
+  servicetwo:
+    image: ${DOCKER_REGISTRY-}servicetwo
+    build:
+      context: .
+      dockerfile: ServiceTwo/Dockerfile
